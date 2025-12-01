@@ -19,7 +19,7 @@ public class WheelServiceSpecs
     [InlineData(IWheelService.RotationDirection.Right, 151, 1)]
     [InlineData(IWheelService.RotationDirection.Right, 199, 49)]
     [InlineData(IWheelService.RotationDirection.Right, 399, 49)]
-    public void ShouldReturnWheelPosition(IWheelService.RotationDirection direction, int numberOfRotations,
+    public void ShouldSetWheelCurrentPosition(IWheelService.RotationDirection direction, int numberOfRotations,
         int expectedWheelPositionAfterRotation)
     {
         var sut = new Application.Day1.WheelService();
