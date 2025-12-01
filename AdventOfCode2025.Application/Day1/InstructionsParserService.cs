@@ -7,9 +7,9 @@ public class RotationInstruction
     public int NumberOfRotations { get; set; }
 }
 
-public class InstructionsParserService
+public static class InstructionsParserService
 {
-    public IEnumerable<RotationInstruction> ParseFromFile(string filepath)
+    public static IEnumerable<RotationInstruction> ParseFromFile(string filepath)
     {
         var instructions = new List<RotationInstruction>();
         foreach (var line in File.ReadLines(filepath))
