@@ -42,9 +42,9 @@ namespace ConsoleApp
                         wheelService.RotateWheel(instruction.Direction, instruction.NumberOfRotations);    
                     }
                     
-                    Console.WriteLine("Times wheel rotated precisely to zero: " + wheelService2.TimesWheelRotatedPreciselyToZero);
-                    Console.WriteLine("Times wheel rotated over the zero: " + wheelService2.TimesWheelRotatedOverZero);
-                    Console.WriteLine("Total: " + (wheelService2.TimesWheelRotatedPreciselyToZero + wheelService2.TimesWheelRotatedOverZero));
+                    Console.WriteLine("Times wheel rotated precisely to zero: " + wheelService.TimesWheelRotatedPreciselyToZero);
+                    Console.WriteLine("Times wheel rotated over the zero: " + wheelService.TimesWheelRotatedOverZero);
+                    Console.WriteLine("Total: " + (wheelService.TimesWheelRotatedPreciselyToZero + wheelService.TimesWheelRotatedOverZero));
                     
                     break;
 
