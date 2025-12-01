@@ -33,10 +33,8 @@ namespace ConsoleApp
             {
                 case 1:
                     Console.WriteLine("Suoritetaan päivän 1 koodi...");
-
-                    var instructionsParser = new InstructionsParserService();
                     
-                    var instructions = instructionsParser.ParseFromFile("day1.txt");
+                    var instructions = InstructionsParserService.ParseFromFile("day1.txt");
                     var wheelService = new WheelService();
 
                     foreach (var instruction in instructions)
@@ -44,13 +42,15 @@ namespace ConsoleApp
                         wheelService.RotateWheel(instruction.Direction, instruction.NumberOfRotations);    
                     }
                     
-                    Console.WriteLine(wheelService.TimesWheelRotatedToZero);
+                    Console.WriteLine("Times wheel rotated precisely to zero: " + wheelService2.TimesWheelRotatedPreciselyToZero);
+                    Console.WriteLine("Times wheel rotated over the zero: " + wheelService2.TimesWheelRotatedOverZero);
+                    Console.WriteLine("Total: " + (wheelService2.TimesWheelRotatedPreciselyToZero + wheelService2.TimesWheelRotatedOverZero));
                     
                     break;
 
                 case 2:
                     Console.WriteLine("Suoritetaan päivän 2 koodi...");
-                    // TODO
+                    
                     break;
 
                 case 3:
