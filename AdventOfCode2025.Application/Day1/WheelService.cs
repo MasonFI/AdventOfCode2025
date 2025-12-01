@@ -31,7 +31,9 @@ public class WheelService(int wheelStaringPosition = 50, int wheelMinimumPositio
     
     private int WheelTotalPositionCount => wheelMaximumPosition - wheelMinimumPosition + 1;
 
-    public int TimesWheelRotatedToZero { get; private set; } = 0;
+    public int TimesWheelRotatedPreciselyToZero { get; private set; } = 0;
+    
+    public int TimesWheelRotatedOverZero { get; private set; } = 0;
 
     public void RotateWheel(IWheelService.RotationDirection direction, int numberOfRotations)
     {
@@ -44,19 +46,37 @@ public class WheelService(int wheelStaringPosition = 50, int wheelMinimumPositio
 
         if (WheelCurrentPosition == 0)
         {
-            TimesWheelRotatedToZero++;
+            TimesWheelRotatedPreciselyToZero++;
         }
 
         return;
         
         int RotateLeft(int steps)
         {
-            return ((WheelCurrentPosition - steps) % WheelTotalPositionCount + WheelTotalPositionCount) % WheelTotalPositionCount;
+            if (steps < 1) return WheelCurrentPosition;
+            
+            var fullRoundsRotated = steps == WheelTotalPositionCount ? 0 : steps / WheelTotalPositionCount;
+            TimesWheelRotatedOverZero+= fullRoundsRotated;
+            var stepsLeftAfterFullRounds = fullRoundsRotated == 0 ? steps : steps % WheelTotalPositionCount;
+            var endPosition = ((WheelCurrentPosition - steps) % WheelTotalPositionCount + WheelTotalPositionCount) % WheelTotalPositionCount;
+
+            // if (endPosition == 0 && TimesWheelRotatedOverZero > 0) TimesWheelRotatedOverZero--;
+            if (WheelCurrentPosition != 0 && (WheelCurrentPosition - stepsLeftAfterFullRounds) < 0) TimesWheelRotatedOverZero++;
+            return endPosition;
         }
         
         int RotateRight(int steps)
         {
-            return ((WheelCurrentPosition + steps) % WheelTotalPositionCount + WheelTotalPositionCount) % WheelTotalPositionCount;
+            if (steps < 1) return WheelCurrentPosition;
+            
+            var fullRoundsRotated = steps == WheelTotalPositionCount ? 0 : steps / WheelTotalPositionCount;
+            TimesWheelRotatedOverZero+= fullRoundsRotated;
+            var stepsLeftAfterFullRounds = fullRoundsRotated == 0 ? steps : steps % WheelTotalPositionCount;
+            var endPosition = ((WheelCurrentPosition + steps) % WheelTotalPositionCount + WheelTotalPositionCount) % WheelTotalPositionCount;
+
+            // if (endPosition == 0 && TimesWheelRotatedOverZero > 0) TimesWheelRotatedOverZero--;
+            if ((WheelCurrentPosition + stepsLeftAfterFullRounds) > WheelTotalPositionCount) TimesWheelRotatedOverZero++;
+            return endPosition;
         }
     }
 }
